@@ -9,3 +9,20 @@ export const getBaseUrl = () => {
 
   return 'http://localhost:3000';
 };
+
+export const combineUrlParams = (
+  url: string = '',
+  params: any = {},
+): string => {
+  const keys: string[] = Object.keys(params);
+  const paramUrl = keys
+    .reduce(
+      (result: any[], key: string) =>
+        params[key] !== undefined && params[key] !== null && params[key] !== ''
+          ? [...result, `${key}=${params[key]}`]
+          : [...result],
+      [],
+    )
+    .join('&');
+  return `${url}?${paramUrl}`;
+};

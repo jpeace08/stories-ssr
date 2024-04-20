@@ -51,3 +51,6 @@ local
 
 # Sentry Config File
 .sentryclirc
+
+.vscode
+.github

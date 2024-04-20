@@ -1,21 +1,65 @@
 'use client';
 
+import Link from 'next/link';
 import {
   // usePathname,
   useSearchParams,
 } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
+import { CacheKeys, getCacheData } from '@/utils/AppConfig';
 
 const ContentNavigation = () => {
   const searchParams = useSearchParams();
-  // const pathname = usePathname();
+  const [mapChapters, setMapChapters] = useState(null);
+  const [uriLinks, setUriLinks] = useState({
+    prevLink: null,
+    nextLink: null,
+  } as any);
 
-  const prevLink = searchParams.get('prev');
-  const nextLink = searchParams.get('next');
+  useEffect(() => {
+    if (!mapChapters) {
+      const cachedMapChapters: any = getCacheData(
+        localStorage,
+        CacheKeys.setChapters,
+        null,
+      );
+      if (cachedMapChapters) {
+        setMapChapters(cachedMapChapters);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mapChapters) {
+      return;
+    }
+    const current = searchParams.get('current');
+    const prev: string = `${Number(current) - 1}`;
+    const next: string = `${Number(current) + 1}`;
+    const prevLink: string = `${mapChapters[prev]}?current=${prev}`;
+    const nextLink: string = `${mapChapters[next]}?current=${next}`;
+    setUriLinks({ prevLink, nextLink });
+  }, [mapChapters]);
 
   return (
-    <div className="grid w-full grid-cols-2 justify-between">
-      <p className="flex items-center justify-center">{prevLink}</p>
-      <p className="flex items-center justify-center">{nextLink}</p>
+    <div className="flex w-full justify-between">
+      {uriLinks.prevLink && (
+        <Link
+          className="items-center justify-center hover:text-blue-700"
+          href={uriLinks.prevLink}
+        >
+          Prev
+        </Link>
+      )}
+      {uriLinks.nextLink && (
+        <Link
+          className="items-center justify-center hover:text-blue-700"
+          href={uriLinks.nextLink}
+        >
+          Next
+        </Link>
+      )}
     </div>
   );
 };
