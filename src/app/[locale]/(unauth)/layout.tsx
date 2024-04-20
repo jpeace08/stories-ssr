@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { BaseTemplate } from '@/templates/BaseTemplate';
 
 export default function Layout(props: { children: React.ReactNode }) {
@@ -51,14 +50,14 @@ export default function Layout(props: { children: React.ReactNode }) {
               {t('stories_link')}
             </Link>
           </li>
-          <li>
+          {/* <li>
             <a
               className="border-none text-gray-700 hover:text-gray-900"
               href="https://github.com/jpeace08"
             >
               GitHub
             </a>
-          </li>
+          </li> */}
         </>
       }
       rightNav={
@@ -81,9 +80,9 @@ export default function Layout(props: { children: React.ReactNode }) {
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <LocaleSwitcher />
-          </li>
+          </li> */}
         </>
       }
     >
