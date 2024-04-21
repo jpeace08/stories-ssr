@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 
-import LocaleSwitcher from '@/components/LocaleSwitcher';
+// import LocaleSwitcher from '@/components/LocaleSwitcher';
 import { LogOutButton } from '@/components/LogOutButton';
 import { BaseTemplate } from '@/templates/BaseTemplate';
 
@@ -36,9 +36,9 @@ export default function DashboardLayout(props: { children: React.ReactNode }) {
             <LogOutButton />
           </li>
 
-          <li>
+          {/* <li>
             <LocaleSwitcher />
-          </li>
+          </li> */}
         </>
       }
     >
