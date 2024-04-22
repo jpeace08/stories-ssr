@@ -11,17 +11,7 @@ type Props = {
 
 const ScrollTopButton = (params: Props) => {
   const { direction, scrollCallback } = params;
-
-  // const [disbale, setDisable] = useState(false);
-  const [arrow, setArrow] = useState(null as any);
   const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    if (!direction) {
-      return;
-    }
-    setArrow(direction);
-  }, [direction]);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -39,9 +29,9 @@ const ScrollTopButton = (params: Props) => {
     return () => {
       window.removeEventListener('scroll', toggleVisibility);
     };
-  }, []);
+  }, [direction]);
 
-  if (!arrow) {
+  if (!direction) {
     return <>...</>;
   }
 
@@ -53,8 +43,11 @@ const ScrollTopButton = (params: Props) => {
         <button
           type="button"
           onClick={() => scrollCallback()}
-          // eslint-disable-next-line tailwindcss/no-custom-classname, tailwindcss/classnames-order
-          className={`size-0 border-l-[10px] border-l-transparent border-${arrow === Direction.Up ? 'b' : 't'}-[20px] border-${arrow === Direction.Up ? 'b' : 't'}-gray-700 border-r-[10px] border-r-transparent`}
+          className={
+            direction === Direction.Up
+              ? `size-0 border-x-[10px] border-b-[18px] border-x-transparent border-b-gray-700`
+              : `size-0 border-x-[10px] border-t-[18px] border-x-transparent border-t-gray-700`
+          }
         />
       )}
     </>

@@ -16,12 +16,16 @@ const ChapterContentWrapper = () => {
   const searchParams = useSearchParams();
   const [uri, setUri] = useState('');
 
-  const handleScrollUp = () => {
-    window.scroll(0, 0);
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
-  const handleScrollDown = () => {
-    // implement later
+  const handleScrollUp = () => {
+    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {

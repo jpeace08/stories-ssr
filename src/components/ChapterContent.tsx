@@ -112,7 +112,10 @@ const ChapterContent = () => {
   return (
     <Suspense fallback="Loading....">
       {arrayData.map((c, index) => (
-        <p className="no-margin text-justify" key={`${index + 8}`}>
+        <p
+          className="no-margin text-justify text-gray-500"
+          key={`${index + 8}`}
+        >
           {c}
         </p>
       ))}
