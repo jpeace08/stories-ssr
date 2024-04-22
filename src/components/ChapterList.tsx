@@ -83,7 +83,7 @@ const ChapterList = () => {
               key={`${r.uri}-${r.number}`}
               href={uriLink}
             >
-              Chương {r.number}: {r.uri.slice(7, r.uri.length - 1)}
+              {r.uri}
             </Link>
           );
         })}
