@@ -104,6 +104,7 @@ const ChapterContent = () => {
         setArrayData(currentChapterContent.split('\n') as string[]);
       })
       .catch((e) => {
+        // eslint-disable-next-line no-console
         console.log('Get content error', e);
       });
   }, [pathname, searchParams]);

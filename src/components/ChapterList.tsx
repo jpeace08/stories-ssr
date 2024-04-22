@@ -57,6 +57,7 @@ const ChapterList = () => {
     };
     if (!isCached) {
       fetchData().catch(() => {
+        // eslint-disable-next-line no-console
         console.log('Get chapter data error');
       });
     } else {

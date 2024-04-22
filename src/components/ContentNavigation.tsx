@@ -9,7 +9,16 @@ import { useEffect, useState } from 'react';
 
 import { CacheKeys, getCacheData } from '@/utils/AppConfig';
 
-const ContentNavigation = () => {
+import { ScrollTopButton } from './ScrollTopButton';
+
+type Props = {
+  direction: string;
+  scrollCallback: () => void;
+};
+
+const ContentNavigation = (params: Props) => {
+  const { direction, scrollCallback } = params;
+
   const searchParams = useSearchParams();
   const [mapChapters, setMapChapters] = useState(null);
   const [uriLinks, setUriLinks] = useState({
@@ -40,10 +49,11 @@ const ContentNavigation = () => {
     const prevLink: string = `${mapChapters[prev]}?current=${prev}`;
     const nextLink: string = `${mapChapters[next]}?current=${next}`;
     setUriLinks({ prevLink, nextLink });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mapChapters]);
 
   return (
-    <div className="flex w-full justify-between">
+    <div className="flex w-full items-center justify-between">
       {uriLinks.prevLink && (
         <Link
           className="items-center justify-center hover:text-blue-700"
@@ -52,6 +62,7 @@ const ContentNavigation = () => {
           Prev
         </Link>
       )}
+      <ScrollTopButton direction={direction} scrollCallback={scrollCallback} />
       {uriLinks.nextLink && (
         <Link
           className="items-center justify-center hover:text-blue-700"

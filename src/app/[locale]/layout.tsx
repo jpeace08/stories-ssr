@@ -45,7 +45,7 @@ export default function RootLayout(props: {
 
   return (
     <html lang={props.params.locale}>
-      <body>
+      <body className="smooth-scroll">
         <NextIntlClientProvider
           locale={props.params.locale}
           messages={messages}

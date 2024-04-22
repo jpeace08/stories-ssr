@@ -12,6 +12,11 @@ export const AppConfig = {
 
 export const MAX_FETCH_CHAPTER: number = 500;
 
+export const Direction = {
+  Up: 'UP',
+  Down: 'DOWN',
+};
+
 export const CacheKeys = {
   chapters: 'CHAPTER_LIST_KEY',
   setChapters: 'SET_CHAPTER_LIST_KEY',
@@ -30,6 +35,7 @@ export const getCacheData = (
     }
     return JSON.parse(data);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
     return defaultValue;
   }
@@ -39,6 +45,7 @@ export const isExistData = (localStorage: any, key: string): boolean => {
   try {
     return localStorage.getItem(key);
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
     return false;
   }
@@ -53,6 +60,7 @@ export const setCacheData = (
     localStorage.setItem(key, JSON.stringify(data));
     return true;
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.log(error);
     return false;
   }
