@@ -1,8 +1,9 @@
 'use client';
 
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 
+import Loading from '@/app/[locale]/(unauth)/stories/[slug]/loading';
 import { Direction } from '@/utils/AppConfig';
 
 import { ChapterContent } from './ChapterContent';
@@ -41,24 +42,22 @@ const ChapterContentWrapper = () => {
     }
   }, [pathname, searchParams]);
 
-  if (!uri) {
-    return <>Loading...</>;
-  }
-
   return (
-    <div className="grid grid-cols-1 justify-items-start gap-3 text-justify md:grid-cols-1 xl:grid-cols-1">
-      {/* <p>Chapter: {uri}</p> */}
-      <ContentNavigation
-        chapterName={uri}
-        direction={`${Direction.Down}`}
-        scrollCallback={handleScrollDown}
-      />
-      <ChapterContent />
-      <ContentNavigation
-        direction={`${Direction.Up}`}
-        scrollCallback={handleScrollUp}
-      />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div className="grid grid-cols-1 justify-items-start gap-3 text-justify md:grid-cols-1 xl:grid-cols-1">
+        {/* <p>Chapter: {uri}</p> */}
+        <ContentNavigation
+          chapterName={uri}
+          direction={`${Direction.Down}`}
+          scrollCallback={handleScrollDown}
+        />
+        <ChapterContent />
+        <ContentNavigation
+          direction={`${Direction.Up}`}
+          scrollCallback={handleScrollUp}
+        />
+      </div>
+    </Suspense>
   );
 };
 

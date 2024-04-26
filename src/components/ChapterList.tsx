@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
 
+import Loading from '@/app/[locale]/(unauth)/stories/loading';
 import {
   CacheKeys,
   getCacheData,
@@ -69,8 +70,8 @@ const ChapterList = () => {
   }, [isCached]);
 
   return (
-    <div className="grid grid-cols-1 justify-items-start gap-3 md:grid-cols-1 xl:grid-cols-1">
-      <Suspense fallback="Loading...">
+    <Suspense fallback={<Loading />}>
+      <div className="grid grid-cols-1 justify-items-start gap-3 md:grid-cols-1 xl:grid-cols-1">
         {chapters.map((r: any) => {
           const uri: string = `/stories/${r.uri}`;
           // const prev = mapChapters[`${Number(r.number) - 1}`];
@@ -87,8 +88,8 @@ const ChapterList = () => {
             </Link>
           );
         })}
-      </Suspense>
-    </div>
+      </div>
+    </Suspense>
   );
 };
 

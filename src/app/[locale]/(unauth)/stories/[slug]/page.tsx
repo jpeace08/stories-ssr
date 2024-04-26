@@ -1,8 +1,6 @@
 // import { useTranslations } from 'next-intl';
 // import { getTranslations } from 'next-intl/server';
-
 import { ChapterContentWrapper } from '@/components/ChapterContentWrapper';
-
 // type IPortfolioDetailProps = {
 //   params: { locale: string };
 // };

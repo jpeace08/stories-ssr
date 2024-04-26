@@ -3,6 +3,7 @@
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
+import Loading from '@/app/[locale]/(unauth)/stories/[slug]/loading';
 import {
   CacheKeys,
   getCacheData,
@@ -110,7 +111,7 @@ const ChapterContent = () => {
   }, [pathname, searchParams]);
 
   return (
-    <Suspense fallback="Loading....">
+    <Suspense fallback={<Loading />}>
       {arrayData.map((c, index) => (
         <p
           className="no-margin text-justify text-gray-500"

@@ -10,7 +10,7 @@ export const AppConfig = {
   localePrefix,
 };
 
-export const MAX_FETCH_CHAPTER: number = 500;
+export const MAX_FETCH_CHAPTER: number = 100;
 
 export const Direction = {
   Up: 'UP',
