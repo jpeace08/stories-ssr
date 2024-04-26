@@ -14,7 +14,7 @@ const ChapterContentWrapper = () => {
   // const t = await getTranslations('Dashboard');
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [uri, setUri] = useState('');
+  const [chapter, setChapter] = useState('');
 
   const handleScrollDown = () => {
     window.scrollTo({
@@ -32,24 +32,21 @@ const ChapterContentWrapper = () => {
     if (!pathname) {
       return;
     }
-    const pathNames: string[] = pathname.split('/');
+    const pathNames: string[] = pathname.split('/').filter((e: string) => e);
     if (Array.isArray(pathNames) && pathNames.length > 1) {
-      const uriApi: string | undefined = pathNames[2];
-      if (uriApi) {
-        setUri(uriApi);
+      const chapterUri: string | undefined = pathNames[2];
+      if (chapterUri) {
+        setChapter(chapterUri);
       }
     }
   }, [pathname, searchParams]);
 
-  if (!uri) {
-    return <>Loading...</>;
-  }
-
   return (
-    <div className="grid grid-cols-1 justify-items-start gap-3 text-justify md:grid-cols-1 xl:grid-cols-1">
-      <p>Chapter: {uri}</p>
+    <div className="grid grid-cols-1 justify-items-start gap-3 py-[10px] text-justify md:grid-cols-1 xl:grid-cols-1">
+      {/* <p>Chapter: {chapter}</p> */}
       <ContentNavigation
         direction={`${Direction.Down}`}
+        chapterName={chapter}
         scrollCallback={handleScrollDown}
       />
       <ChapterContent />

@@ -7,10 +7,11 @@ import { Direction } from '@/utils/AppConfig';
 type Props = {
   direction: string;
   scrollCallback: () => void;
+  chapterName?: string;
 };
 
 const ScrollTopButton = (params: Props) => {
-  const { direction, scrollCallback } = params;
+  const { direction, scrollCallback, chapterName } = params;
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -31,14 +32,10 @@ const ScrollTopButton = (params: Props) => {
     };
   }, [direction]);
 
-  if (!direction) {
-    return <>...</>;
-  }
-
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
-      {isVisible && (
+      {isVisible ? (
         // eslint-disable-next-line jsx-a11y/control-has-associated-label
         <button
           type="button"
@@ -49,6 +46,8 @@ const ScrollTopButton = (params: Props) => {
               : `size-0 border-x-[10px] border-t-[18px] border-x-transparent border-t-gray-700`
           }
         />
+      ) : (
+        <p className="text-truncation">{chapterName}</p>
       )}
     </>
   );

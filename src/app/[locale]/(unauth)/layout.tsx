@@ -42,14 +42,14 @@ export default function Layout(props: { children: React.ReactNode }) {
               {t('portfolio_link')}
             </Link>
           </li> */}
-          <li>
+          {/* <li>
             <Link
               href="/stories/"
               className="border-none text-gray-700 hover:text-gray-900"
             >
               {t('stories_link')}
             </Link>
-          </li>
+          </li> */}
           {/* <li>
             <a
               className="border-none text-gray-700 hover:text-gray-900"

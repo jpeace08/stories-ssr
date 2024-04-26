@@ -10,7 +10,7 @@ export const AppConfig = {
   localePrefix,
 };
 
-export const MAX_FETCH_CHAPTER: number = 500;
+export const MAX_FETCH_CHAPTER: number = 100;
 
 export const Direction = {
   Up: 'UP',
@@ -37,6 +37,7 @@ export const getCacheData = (
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+    localStorage.removeItem(key);
     return defaultValue;
   }
 };
@@ -47,6 +48,7 @@ export const isExistData = (localStorage: any, key: string): boolean => {
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+    localStorage.removeItem(key);
     return false;
   }
 };
@@ -62,6 +64,7 @@ export const setCacheData = (
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
+    localStorage.removeItem(key);
     return false;
   }
 };

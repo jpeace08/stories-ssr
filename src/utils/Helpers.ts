@@ -26,3 +26,18 @@ export const combineUrlParams = (
     .join('&');
   return `${url}?${paramUrl}`;
 };
+
+export const stringToSlug = (str: string): string => {
+  // Remove accents and special characters, then replace spaces with hyphens
+
+  const normalStr: string = str
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+    .replace(/[^a-z0-9 -]/g, '') // Remove invalid chars
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/-+/g, '-'); // Replace multiple - with single -
+
+  // Trim hyphens from both ends of the string
+  return normalStr.replace(/^-+|-+$/g, '');
+};

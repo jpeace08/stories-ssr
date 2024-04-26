@@ -2,6 +2,7 @@
 
 // import { currentUser } from '@clerk/nextjs';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
 
 import {
@@ -16,6 +17,7 @@ import { combineUrlParams } from '@/utils/Helpers';
 const ChapterList = () => {
   // const t = await getTranslations('Dashboard');
 
+  const pathname = usePathname();
   const [chapters, setChapters] = useState([] as any);
   // const [mapChapters, setMapChapters] = useState({} as any);
   const [isCached, setIsCached] = useState(true);
@@ -26,29 +28,21 @@ const ChapterList = () => {
   }, []);
 
   useEffect(() => {
+    if (!pathname) {
+      return;
+    }
+    const pathNames: string[] = `${pathname}`.split('/').filter((e) => e);
     const fetchData = async () => {
-      let fetchChapter = await fetch(
-        'https://truyenchu.vn/api/services/chapter-option?type=chapter_option&data=801',
-        {
-          next: { revalidate: 60 },
+      const { data } = await fetch(`/api/novels/${pathNames[1]}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ).then((res) => res.text());
-      fetchChapter = `${fetchChapter}`;
-      const re = /chuong-(\d+)-(-?[a-z]-?)+/g;
-      const matchResult = [...fetchChapter.matchAll(re)];
-      const chaptersData: any[] = [];
-      let setChaptersData: any = {};
-      matchResult.forEach((res) => {
-        chaptersData.push({
-          uri: res[0],
-          number: res[1],
-        });
-        setChaptersData = {
-          ...setChaptersData,
-          [`${res[1]}`]: `${res[0]}`,
-        };
-      });
-
+      }).then((res) => res.json());
+      if (!data) {
+        return;
+      }
+      const { chaptersData, setChaptersData } = data;
       setCacheData(localStorage, CacheKeys.chapters, chaptersData);
       setCacheData(localStorage, CacheKeys.setChapters, setChaptersData);
 
@@ -66,20 +60,18 @@ const ChapterList = () => {
         setChapters(cacheData);
       }
     }
-  }, [isCached]);
+  }, [isCached, pathname]);
 
   return (
-    <div className="grid grid-cols-1 justify-items-start gap-3 md:grid-cols-1 xl:grid-cols-1">
+    <div className="grid grid-cols-1 justify-items-start gap-3 py-[10px] md:grid-cols-1 xl:grid-cols-1">
       <Suspense fallback="Loading...">
         {chapters.map((r: any) => {
-          const uri: string = `/stories/${r.uri}`;
-          // const prev = mapChapters[`${Number(r.number) - 1}`];
-          // const next = mapChapters[`${Number(r.number) + 1}`];
+          const uri: string = `${pathname}/${r.uri}`;
           const uriLink: string = combineUrlParams(uri, { current: r.number });
 
           return (
             <Link
-              className="hover:text-blue-700"
+              className="text-lg text-gray-500 hover:text-blue-700"
               key={`${r.uri}-${r.number}`}
               href={uriLink}
             >

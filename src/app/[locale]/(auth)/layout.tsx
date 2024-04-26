@@ -9,6 +9,7 @@ export default function AuthLayout(props: {
   let signInUrl = '/sign-in';
   let signUpUrl = '/sign-up';
   let dashboardUrl = '/dashboard';
+  // let chineseCultivationNovelsUrl = '/chinese-novels';
 
   if (props.params.locale === 'fr') {
     clerkLocale = frFR;
@@ -18,6 +19,7 @@ export default function AuthLayout(props: {
     signInUrl = `/${props.params.locale}${signInUrl}`;
     signUpUrl = `/${props.params.locale}${signUpUrl}`;
     dashboardUrl = `/${props.params.locale}${dashboardUrl}`;
+    // chineseCultivationNovelsUrl = `${props.params.locale}${chineseCultivationNovelsUrl}`;
   }
 
   return (

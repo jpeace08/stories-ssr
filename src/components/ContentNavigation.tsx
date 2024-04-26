@@ -14,10 +14,11 @@ import { ScrollTopButton } from './ScrollTopButton';
 type Props = {
   direction: string;
   scrollCallback: () => void;
+  chapterName?: string;
 };
 
 const ContentNavigation = (params: Props) => {
-  const { direction, scrollCallback } = params;
+  const { direction, scrollCallback, chapterName } = params;
 
   const searchParams = useSearchParams();
   const [mapChapters, setMapChapters] = useState(null);
@@ -37,6 +38,7 @@ const ContentNavigation = (params: Props) => {
         setMapChapters(cachedMapChapters);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -62,7 +64,11 @@ const ContentNavigation = (params: Props) => {
           Prev
         </Link>
       )}
-      <ScrollTopButton direction={direction} scrollCallback={scrollCallback} />
+      <ScrollTopButton
+        direction={direction}
+        scrollCallback={scrollCallback}
+        chapterName={chapterName}
+      />
       {uriLinks.nextLink && (
         <Link
           className="items-center justify-center hover:text-blue-700"

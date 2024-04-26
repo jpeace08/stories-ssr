@@ -9,3 +9,18 @@
   margin-left: 2px !important;
   margin-right: 2px !important;
 }
+
+.image-logout {
+   width: 2rem;
+   height: auto;
+   filter: invert(0.35);
+   padding: 3px;
+   cursor: pointer;
+}
+
+.text-truncation {
+  max-width: 13rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

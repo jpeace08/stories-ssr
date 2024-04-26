@@ -10,31 +10,20 @@ import {
   setCacheData,
 } from '@/utils/AppConfig';
 
-const fetchDataChapter = async (uri: string): Promise<any> => {
-  let fetchChapter = await fetch(
-    `https://truyenchu.vn/dai-quan-gia-la-ma-hoang/${uri}`,
+const fetchDataChapter = async (
+  selectedMenu: string,
+  novelName: string,
+  uri: string,
+): Promise<any> => {
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}api/${selectedMenu}/${novelName}/${uri}`,
     {
-      next: { revalidate: 10 },
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  ).then((res) => res.text());
-  fetchChapter = `${fetchChapter}`;
-  const re = /itemprop="articleBody">(.*)<div id="chapter-append"><\/div>/gms;
-  const matchResult = [...fetchChapter.matchAll(re)];
-  if (matchResult.length <= 0) {
-    return null;
-  }
-  let data: string = '';
-  const content = matchResult[0];
-  if (Array.isArray(content) && content.length > 1) {
-    data = `${content[1]}`;
-    data = data
-      .trim()
-      .replace(/<br\s*\/?>/gi, '\n')
-      .replace(/<\/?p>/gi, '')
-      .replace(/<div.*?>.*?<\/div>/gis, '')
-      .replace(/<a.*?>.*?<\/a>/gis, '')
-      .replace(/<script.*?>.*?<\/script>/gis, '');
-  }
+  ).then((res) => res.json());
   return { uri, data };
 };
 
@@ -49,7 +38,7 @@ const ChapterContent = () => {
     if (!pathname) {
       return;
     }
-    const pathNames: string[] = pathname.split('/');
+    const pathNames: string[] = `${pathname}`.split('/').filter((e) => e);
     if (pathNames.length < 3) {
       return;
     }
@@ -85,7 +74,13 @@ const ChapterContent = () => {
       chapters.length + 2,
     );
     for (let i = currentChapter; i <= limitFetch; i += 1) {
-      promises.push(fetchDataChapter(mapChapters[`${i}`]));
+      promises.push(
+        fetchDataChapter(
+          `${pathNames[0]}`,
+          `${pathNames[1]}`,
+          mapChapters[`${i}`],
+        ),
+      );
     }
 
     let currentChapterContent: string = '';
@@ -93,9 +88,13 @@ const ChapterContent = () => {
       const arrayDatas: any[] = await Promise.all(promises);
       arrayDatas.forEach(({ uri, data }) => {
         if (`${uri}` === pathNames[2]) {
-          currentChapterContent = data;
+          currentChapterContent = data.content;
         }
-        setCacheData(localStorage, `${CacheKeys.preContentKey}${uri}`, data);
+        setCacheData(
+          localStorage,
+          `${CacheKeys.preContentKey}${uri}`,
+          data.content,
+        );
       });
       return true;
     };

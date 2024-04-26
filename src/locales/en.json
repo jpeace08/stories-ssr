@@ -5,6 +5,7 @@
     "guestbook_link": "Guestbook",
     "portfolio_link": "Portfolio",
     "stories_link": "Stories",
+    "chinese_cultivation_novels": "Chinese cultivation novels",
     "sign_in_link": "Sign in",
     "sign_up_link": "Sign up"
   },
@@ -31,6 +32,12 @@
     "meta_title": "About",
     "meta_description": "About page description",
     "about_paragraph": "Welcome to our About page! We are a team of passionate individuals dedicated to creating amazing software.",
+    "translation_powered_by": "Translation powered by"
+  },
+  "Novels": {
+    "meta_title": "Novel",
+    "meta_description": "Chinese novels",
+    "about_paragraph": "Welcome to our Novels page! We are a team of passionate individuals dedicated to creating amazing software.",
     "translation_powered_by": "Translation powered by"
   },
   "Portfolio": {
@@ -66,6 +73,13 @@
   "DashboardLayout": {
     "dashboard_link": "Dashboard",
     "user_profile_link": "Manage your account",
-    "sign_out": "Sign out"
+    "sign_out": "Sign out",
+    "novel_link": "Chinese Novels"
+  },
+  "DevilButler": {
+    "name": "Đại quản gia là ma hoàng",
+    "slug": "the-great-butler-is-devil",
+    "meta_title": "Truyen {name}",
+    "meta_description": "Truyen {name} description"
   }
 }
