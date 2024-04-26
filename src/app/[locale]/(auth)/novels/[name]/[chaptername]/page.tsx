@@ -2,6 +2,7 @@
 import { getTranslations } from 'next-intl/server';
 
 import { ChapterContentWrapper } from '@/components/ChapterContentWrapper';
+import { logger } from '@/libs/Logger';
 import { getBaseUrl } from '@/utils/Helpers';
 
 export async function generateStaticParams({
@@ -9,21 +10,26 @@ export async function generateStaticParams({
 }: {
   params: { name: string };
 }) {
-  const link = new URL(`${getBaseUrl()}/api/novels/${name}`);
-  const { data } = await fetch(link, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => res.json());
-  if (!data) {
+  try {
+    const link = new URL(`${getBaseUrl()}/api/novels/${name}`);
+    const { data } = await fetch(link, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => res.json());
+    if (!data) {
+      return [];
+    }
+    const { chaptersData } = data;
+
+    return chaptersData.map((c: any) => ({
+      chaptername: c.uri,
+    }));
+  } catch (error) {
+    logger.info(error);
     return [];
   }
-  const { chaptersData } = data;
-
-  return chaptersData.map((c: any) => ({
-    chaptername: c.uri,
-  }));
 }
 
 export async function generateMetadata(props: { params: { locale: string } }) {
