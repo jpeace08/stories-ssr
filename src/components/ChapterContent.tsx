@@ -9,21 +9,22 @@ import {
   MAX_FETCH_CHAPTER,
   setCacheData,
 } from '@/utils/AppConfig';
+import { getBaseUrl } from '@/utils/Helpers';
 
 const fetchDataChapter = async (
   selectedMenu: string,
   novelName: string,
   uri: string,
 ): Promise<any> => {
-  const { data } = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}api/${selectedMenu}/${novelName}/${uri}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const link = new URL(
+    `${getBaseUrl()}/api/${selectedMenu}/${novelName}/${uri}`,
+  );
+  const { data } = await fetch(link, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  ).then((res) => res.json());
+  }).then((res) => res.json());
   return { uri, data };
 };
 

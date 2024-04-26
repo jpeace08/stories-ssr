@@ -2,23 +2,20 @@
 import { getTranslations } from 'next-intl/server';
 
 import { ChapterContentWrapper } from '@/components/ChapterContentWrapper';
-import { logger } from '@/libs/Logger';
+import { getBaseUrl } from '@/utils/Helpers';
 
 export async function generateStaticParams({
   params: { name },
 }: {
   params: { name: string };
 }) {
-  logger.info(name);
-  const { data } = await fetch(
-    `${process.env.NEXT_PUBLIC_APP_URL}api/novels/${name}`,
-    {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const link = new URL(`${getBaseUrl()}/api/novels/${name}`);
+  const { data } = await fetch(link, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
     },
-  ).then((res) => res.json());
+  }).then((res) => res.json());
   if (!data) {
     return [];
   }

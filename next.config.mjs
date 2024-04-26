@@ -12,7 +12,7 @@ const withNextIntlConfig = withNextIntl('./src/libs/i18n.ts');
 
 /** @type {import('next').NextConfig} */
 export default withNextIntlConfig({
-  output: 'standalone',
+  // output: 'standalone',
   images: {
     remotePatterns: [
       {

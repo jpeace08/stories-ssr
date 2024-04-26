@@ -2,12 +2,15 @@ import { NextResponse } from 'next/server';
 
 import { logger } from '@/libs/Logger';
 
+export const runtime = 'edge';
+
 export const GET = async () => {
   try {
     let fetchChapter = await fetch(
       'https://truyenchu.vn/api/services/chapter-option?type=chapter_option&data=801',
       {
-        next: { revalidate: 10 },
+        // next: { revalidate: 10 },
+        cache: 'no-cache',
       },
     ).then((res) => res.text());
     fetchChapter = `${fetchChapter}`;

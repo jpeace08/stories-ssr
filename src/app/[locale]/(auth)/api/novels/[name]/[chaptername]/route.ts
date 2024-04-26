@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 
 import { logger } from '@/libs/Logger';
 
+export const runtime = 'edge';
+
 export const GET = async (request: NextRequest) => {
   try {
     const partURLs: string[] = `${request.url}`
@@ -11,7 +13,8 @@ export const GET = async (request: NextRequest) => {
     let fetchChapter = await fetch(
       `https://truyenchu.vn/dai-quan-gia-la-ma-hoang/${partURLs[partURLs.length - 1]}`,
       {
-        next: { revalidate: 10 },
+        // next: { revalidate: 10 },
+        cache: 'no-cache',
       },
     ).then((res) => res.text());
     fetchChapter = `${fetchChapter}`;

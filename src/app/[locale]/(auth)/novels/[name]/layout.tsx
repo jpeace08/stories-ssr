@@ -8,17 +8,6 @@ export function generateStaticParams() {
   }));
 }
 
-export default function Layout({
-  children,
-  // chapters,
-}: {
-  children: React.ReactNode;
-  // chapters: React.ReactNode;
-}) {
-  return (
-    <>
-      {children}
-      {/* {chapters} */}
-    </>
-  );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return children;
 }
