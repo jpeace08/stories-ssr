@@ -9,3 +9,10 @@
   margin-left: 2px !important;
   margin-right: 2px !important;
 }
+
+.text-truncation {
+  overflow: hidden; 
+  white-space: nowrap; 
+  text-overflow: ellipsis;
+  width: 15rem;
+}

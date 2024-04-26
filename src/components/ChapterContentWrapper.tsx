@@ -47,8 +47,9 @@ const ChapterContentWrapper = () => {
 
   return (
     <div className="grid grid-cols-1 justify-items-start gap-3 text-justify md:grid-cols-1 xl:grid-cols-1">
-      <p>Chapter: {uri}</p>
+      {/* <p>Chapter: {uri}</p> */}
       <ContentNavigation
+        chapterName={uri}
         direction={`${Direction.Down}`}
         scrollCallback={handleScrollDown}
       />
